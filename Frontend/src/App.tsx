@@ -1,6 +1,6 @@
 import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
 import Layout from "./layout/Layout";
-
+import Register from "./pages/Register";
 function App() {
   return (
     <Router>
@@ -11,6 +11,11 @@ function App() {
         <Route path="/search" element = {
           <Layout>
             <p>Search</p>
+          </Layout>
+        }/>
+        <Route path="/register" element = {
+          <Layout>
+            <Register/>
           </Layout>
         }/>
       </Routes>

@@ -8,19 +8,14 @@ const router = express.Router();
 
 
 router.post("/register",
-[
-  check("email", "Please include a valid email").isEmail(),
-  check("password", "Please enter a password with 6 or more characters").isLength({ min: 6 }),
-  check("firstname", "Please enter your first name").not().isEmpty(),
-  check("lastname", "Please enter your last name").not().isEmpty(),
-]
-,async (req: Request, res: Response) => {
-    const error = validationResult(req);
-    if (!error.isEmpty()) {
-      return res.status(400).json({
-        message : "Bad Request"
-      })
-    }
+async (req: Request, res: Response) => {
+    // const error = validationResult(req);
+    // if (!error.isEmpty()) {
+    //   return res.status(400).json({
+    //     message : "Bad Request"
+    //   })
+    // }
+    console.log(req.body);
     try {
       let user = await User.findOne({
         email: req.body.email,
@@ -28,6 +23,15 @@ router.post("/register",
 
       if (user) {
         return res.status(400).json({ message: "User already exists" });
+      }
+    
+      if (req.body.firstName && !req.body.firstname) {
+        req.body.firstname = req.body.firstName;
+        delete req.body.firstName;
+      }
+      if (req.body.lastName && !req.body.lastname) {
+        req.body.lastname = req.body.lastName;
+        delete req.body.lastName;
       }
 
       user = new User(req.body);
