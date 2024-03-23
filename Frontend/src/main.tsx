@@ -21,6 +21,6 @@ ReactDOM.createRoot(document.getElementById('root')!).render(
       <AppContextProvider>
           <App />
       </AppContextProvider>
-    </QueryClientProvider>,
+    </QueryClientProvider>
   </React.StrictMode>
 );
