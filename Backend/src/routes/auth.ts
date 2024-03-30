@@ -23,9 +23,7 @@ router.post("/login", [
         const user = await User.findOne({email : req.body.email});
         if(!user)
         {
-            return res.json({
-                message : "user does not exist"
-            })
+            throw new Error("user does not exist");
         }
         const match = await bcrypt.compare(req.body.password, user.password);
         if(!match)

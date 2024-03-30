@@ -1,16 +1,17 @@
 import express, { urlencoded } from "express";
 import cors from "cors";
-import dotenv from 'dotenv';
+import 'dotenv/config';
 import mongoose from "mongoose";
 import userRoutes from "./routes/user"
 import userAuth from "./routes/auth"
 import morgan from "morgan";
 import cookieparser from "cookie-parser";
-dotenv.config();
-mongoose.connect(process.env.MONGO_URL as string);
+mongoose.connect(process.env.MONGO_CONNECTION_URL as string);
+
 const app = express();
 app.use(cookieparser());
 app.use(express.json());
+
 app.use(express.urlencoded({extended: true}));
 app.use(cors(
   {

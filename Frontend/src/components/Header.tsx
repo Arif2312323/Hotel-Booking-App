@@ -17,13 +17,13 @@ const Header = () => {
               to="/my-bookings"
               className="flex bg-white items-center text-blue-600 px-3 font-bold hover:bg-gray-100"
             >
-              My-Bookings
+              My Bookings
             </Link>
             <Link
               to="/my-hotels"
               className="flex bg-white items-center text-blue-600 px-3 font-bold hover:bg-gray-100"
             >
-              My-Hotels
+              My Hotels
             </Link>
             <SignOutButton/>
             </div>
