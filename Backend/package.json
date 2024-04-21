@@ -5,7 +5,8 @@
   "main": "./src/index.ts",
   "scripts": {
     "dev": "cross-env DOTENV_CONFIG_PATH=.env nodemon",
-    "build" : "npm install && npx tsc",
+    "build": "npm install && npx tsc",
+    "build2": "webpack --mode production",
     "start": "node ./dist/index.js",
     "e2e": "cross-env DOTENV_CONFIG_PATH=.env.e2e nodemon"
   },
@@ -36,6 +37,8 @@
     "@types/node": "^20.10.6",
     "nodemon": "^3.0.2",
     "ts-node": "^10.9.2",
-    "typescript": "^5.3.3"
+    "typescript": "^5.3.3",
+    "webpack": "^5.91.0",
+    "webpack-cli": "^5.1.4"
   }
 }
