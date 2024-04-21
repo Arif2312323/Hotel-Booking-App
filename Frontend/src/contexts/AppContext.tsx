@@ -26,7 +26,7 @@ export const AppContextProvider = (
         },
         isLoggedIn : !isError
         }}>
-            {Toast && <TToast message={Toast.message} type={Toast.type} onClose={() => setToast(null)}/>};
+            {Toast && <TToast message={Toast.message} type={Toast.type} onClose={() => setToast(null)}/>}
             
             {children}
         </AppContext.Provider>
