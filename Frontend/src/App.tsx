@@ -2,7 +2,7 @@ import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
 import Layout from "./layout/Layout";
 import Register from "./pages/Register";
 import SignIN from "./pages/SignIN"
-import AddHotel from "./pages/addHotel";
+import AddHotel from "./pages/AddHotel";
 import { useAppContext } from "./contexts/AppContext";
 function App() {
   const {isLoggedIn} = useAppContext();
