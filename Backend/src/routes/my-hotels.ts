@@ -54,6 +54,16 @@ router.post(
     }
   }
 );
+
+router.get("/", verifyToken, async (req: Request, res: Response) => {
+  try {
+    const hotels = await Hotel.find({ userId: req.userId });
+    res.json(hotels);
+  } catch (error) {
+    res.status(500).json({ message: "Error fetching hotels" });
+  }
+});
+
 async function uploadImages(imageFiles: Express.Multer.File[]) {
     const uploadPromises = imageFiles.map(async (image) => {
       const b64 = Buffer.from(image.buffer).toString("base64");
@@ -66,4 +76,5 @@ async function uploadImages(imageFiles: Express.Multer.File[]) {
     return imageUrls;
   }
   
+
   export default router;
