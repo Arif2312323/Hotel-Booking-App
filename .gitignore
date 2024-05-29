@@ -1,6 +1,15 @@
-# Ignore .env files
+# Ignore environment variable files
 .env
 .env.e2e
+
+# Ignore node_modules directory
 node_modules
+
+# Ignore Visual Studio Code settings directory
 .vscode
+
+# Ignore build output directory
 dist
+
+# Ignore JSON files
+*.json
