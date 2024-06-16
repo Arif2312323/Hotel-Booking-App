@@ -1,7 +1,7 @@
 import { test, expect } from "@playwright/test";
 import path from "path";
 
-const UI_URL = "http://localhost:3000/";
+const UI_URL = "http://localhost:5174/";
 
 test.beforeEach(async ({ page }) => {
   await page.goto(UI_URL);
@@ -20,7 +20,7 @@ test.beforeEach(async ({ page }) => {
 });
 
 test("should allow user to add a hotel", async ({ page }) => {
-  await page.goto(`${UI_URL}my-hotels`);
+  await page.goto(`${UI_URL}add-hotel`);
 
   await page.locator('[name="name"]').fill("Test Hotel");
   await page.locator('[name="city"]').fill("Test City");

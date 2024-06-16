@@ -6,7 +6,7 @@ type ToastProps = {
   onClose: () => void;
 };
 
-const TToast = ({ message, type, onClose }: ToastProps) => {
+const Toast = ({ message, type, onClose }: ToastProps) => {
   useEffect(() => {
     const timer = setTimeout(() => {
       onClose();
@@ -31,4 +31,4 @@ const TToast = ({ message, type, onClose }: ToastProps) => {
   );
 };
 
-export default TToast;
+export default Toast;

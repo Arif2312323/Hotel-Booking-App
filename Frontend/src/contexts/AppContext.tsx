@@ -1,42 +1,60 @@
-import React, { useState } from "react";
-import TToast from "../components/Toast";
+import React, { useContext, useState } from "react";
+import Toast from "../components/Toast";
 import { useQuery } from "react-query";
-import * as api_client from "../api-client";
-type showtoast = {
-    message: string,
-    type: "SUCCESS" | "ERROR",
+import * as apiClient from "../api-client";
+import { loadStripe, Stripe } from "@stripe/stripe-js";
+
+const STRIPE_PUB_KEY = import.meta.env.VITE_STRIPE_PUB_KEY || "";
+
+type ToastMessage = {
+  message: string;
+  type: "SUCCESS" | "ERROR";
 };
 
 type AppContext = {
-    showToast: (toast: showtoast) => void,
-    isLoggedIn : boolean
+  showToast: (toastMessage: ToastMessage) => void;
+  isLoggedIn: boolean;
+  stripePromise: Promise<Stripe | null>;
 };
 
-const AppContext = React.createContext<AppContext | null>(null);
-export const AppContextProvider = (
-    {children} : {children : React.ReactNode}
-)=>{
-    const [Toast,setToast] = useState<showtoast | null>(null);
-    const {isError} = useQuery("validateToken", api_client.validateToken, {
-        retry : false,
-    })
-    return(
-        <AppContext.Provider value={{showToast : (toastmessage)=>{
-            setToast(toastmessage);
+const AppContext = React.createContext<AppContext | undefined>(undefined);
+
+const stripePromise = loadStripe(STRIPE_PUB_KEY);
+
+export const AppContextProvider = ({
+  children,
+}: {
+  children: React.ReactNode;
+}) => {
+  const [toast, setToast] = useState<ToastMessage | undefined>(undefined);
+
+  const { isError } = useQuery("validateToken", apiClient.validateToken, {
+    retry: false,
+  });
+
+  return (
+    <AppContext.Provider
+      value={{
+        showToast: (toastMessage) => {
+          setToast(toastMessage);
         },
-        isLoggedIn : !isError
-        }}>
-            {Toast && <TToast message={Toast.message} type={Toast.type} onClose={() => setToast(null)}/>}
-            
-            {children}
-        </AppContext.Provider>
-    )
-}
+        isLoggedIn: !isError,
+        stripePromise,
+      }}
+    >
+      {toast && (
+        <Toast
+          message={toast.message}
+          type={toast.type}
+          onClose={() => setToast(undefined)}
+        />
+      )}
+      {children}
+    </AppContext.Provider>
+  );
+};
 
 export const useAppContext = () => {
-    const context = React.useContext(AppContext);
-    if (context === undefined) {
-        throw new Error('useAppContext must be used within a AppContextProvider');
-    }
-    return context as AppContext;
-}
+  const context = useContext(AppContext);
+  return context as AppContext;
+};
